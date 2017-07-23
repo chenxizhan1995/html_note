@@ -1,0 +1,29 @@
+字体
+    字体 font-family
+    通常，给整个页面定义一个基本字体，然后对特定部分单独定义。
+    不同的操作系统所能提供的字体会有不同，arial常见于PC上，helvetica常见于Macs上，serif，sans-serif，monospace则得到了普遍支持。所以可以这样设定默认字体。
+    body{font-family:"Times New Roman"}
+    h2 {font-family:arial,helvetical, sans-serif}
+
+    多数Windows系统预装有Century Gothic字体，多数Mac系统预装有Avant Garde字体，所以用
+        body{font-family: Verdana, Geneva, arial,helvetical, sans-serif}
+        h1,h2 {"Century Gothic,"Avant Garde"}
+    可以让标题字体总是有区别于正文字体。
+字号
+
+    如果用px定义字体大小，那么，IE浏览器缩放页面时，字体不会跟着缩放，（但火狐，谷歌就可以）
+    所以，为了使用IE浏览器，相对字体大小是唯一的选择；然而，当用em指定字体大小时，字体出于IE浏览器上的较小字体时可能看不清楚，这回过来又违背了可用性，解决方法是，用百分比指定初始字体大小，然后用em的方式表示。
+    body{font-size:80%}
+    h1{font-size:2em}
+    h2{font-size:1.5em}
+font会重置属性
+        font会重置属性，在应用属性之前，fong属性会重置font-style font-variant font-size/line-height font-family属性到它的初始化定义。
+        如，
+        .wooha{
+            font-weight:bold;
+            font-variant: small-caps;
+            font: 2em arial;
+        }
+        bold和small-caps将不能得到应用，因为紧随其后的font属性将他们覆盖掉了。
+点状下划线
+        下划线经常憋当作链接，容易引起误解，所以点状下划线 border-bottom: 1px dotted出现了，但即便如此，仍会有些令人误解。
