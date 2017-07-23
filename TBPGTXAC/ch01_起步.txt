@@ -1,0 +1,227 @@
+
+1.1 HTML 语法
+
+    相比于过去的HTML,XHTML拥有更为严格的语法。
+
+    对象、标签和属性（elements，tags，attributes）
+        举例说明如下
+            <a href="http://www.htmldog.com/">HTML Dog </a>
+        <a href="http://www.htmldog.com/">是开始标签，定义了对象的开始
+        </a>是结束标签，定义了对象的结束
+        HTML Dog是内容
+        href是一个属性，用来设置对象
+        "http://www.htmldog.com/"是属性的值，描述了href属性的具体内容
+        <a href="http://www.htmldog.com/">HTML Dog </a>就是一个完整的对象。
+
+        对于标签
+            XHTML要求所有的标签和属性必须使用小写字母
+            所有的标签必须闭合
+                <a href="http://www.htmldog.com/">HTML Dog </a>
+                <br />
+            所有的属性值必须放在引号中（所有的属性必须赋值）
+            对象必须正确地嵌套
+        对象具有父子、祖孙、兄弟关系。
+        对象可分为块级对象和行级对象两类。
+
+    常用属性：class，id，style，title，
+        许多属性只用于特定的标签，但有那么一组“通用属性”是多数标签都会用到的。
+
+        核心属性：class，id，style，title
+        i18n属性：dir，xml:lang
+            dir = ltr,rtl
+            xml:lang = en, de, mg, ...
+
+        事件属性：onclick,ondbclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup
+
+
+    HTML文档的基本结构
+        所有的XHTML页面代码都应当位于一个这样的框架中
+        --------------------------------------------------------------------------------
+        <!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+            "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+        <head>
+            <title></title>
+        </head>
+        <body>
+
+        </body>
+        </html>
+        --------------------------------------------------------------------------------
+
+        文档类型
+            顶端是文档类型声明，如果没有，那就不是一个合法的html,浏览器将开启quirks模式，按自己默认的方式处理页面。
+
+            这里，声明的文档类型是xhtml 1.0 strict
+            <!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+            文档类型声明必须位于文档的最开始部分，它的前面不能再有任何内容，否则会失效。
+
+            这个DOCTYPE语句不是HTML标签，它要求大写，前面要有感叹号，并且不是关闭的标签。
+
+            其它的文档类型声明：
+                xhtml 1.1
+                <!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+                    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+                XHTML transitional是HTML4到XHTML的过度
+        Content-Type
+            在发送内容之前，使用http头告知浏览器文件的MIME类型是必要的，
+            "Conten-Type: text/html; charset=utf-8"
+
+            然而，可以在html页面的head对象内通过meta标签模拟http头信息，但使用真正的http头是更好的选择。
+            <meta http-equiv="Context-Type" content="text/html; charset=utf-8" />
+
+        HTML 注释
+            <!-- -->是注释
+            可以包含多行
+        head对象内可以使用的标签只有有限几个:meta, title, link, base, styel, script
+            title定义文档的标题，它将作为标题出现在浏览器窗口中；
+            link定义了外部资源的链接，如CSS文件，快捷方式图标，自定义导航
+            一些link对象常用的例子
+                <link rel="stylesheet" type="text/css" title"some title" href="/somefile.css" />
+                <link rel="alternate stylesheet" type="text/css" title="Some alternative title" href="/sonmeotherfile.css" />
+                <link rel="shortcut icom" href="/favicon.ico" />
+                <link rel="next" type="text/html" title="Next Page" href="nextpage.html" />
+
+                HTML start next prev 示例说明
+                    next -- 记录文档的下一页.(浏览器可以提前加载此页)
+                    prev -- 记录文档的上一页.(定义浏览器的后退键)
+                    start -- 通知搜索引擎,文档的开始
+        meta 中的内容包含“元信息”
+            http-equiv是meta的一个实例。但更常见的是那些直白命名的标签，如author，keywords
+
+            meta的重要属性是content，它的值是元信息的内容，另一个就是name，它是元信息的名字
+            <meta name="keywords" content="fruit, banana, orange, apple" />
+            <meta name="description" content="News, reviews and opinion on all things fruity." />
+            <meta name="author" content="The Fruit Farmers Association of Bujumburra" />
+            <meta name="copyright" content="YYYY-MM-DD xxx inc" />
+        base定义恶劣页面上链接的基础定位，但不常用。
+    多功能标签：div和span
+1.2 CSS语法
+    规则:选择符、属性、值
+        CSS的语法和HTML不同。
+        CSS由一条条的规则组成。
+        一个典型的规则如下
+            h1 {font-size: 2em;}
+            h1          是选择符
+            font-size   是属性
+            2em         是属性的值
+            font-size:2em   是一个声明
+            h1 {font-size: 2em;} 整个是一体规则
+    选择符（selector）：html选择符，类选择符，id选择符
+        p {}
+        .<class-name> {}
+        #<id-name>{}
+        p.<class>{} // 只应用到使用了特定类名的特定html对象上
+
+        类和id的命名应当语义化，不应该暗示任何表现的意思，不应该暗示对应的css规则，比如，redtext, largebox, hidden, float1这些名字都是很糟糕的。
+
+        分组选择符
+
+            h2, .panda, #kumquat {color:red}
+            等价于
+            h2 {color:red}
+            .panda {color:red}
+            #kumquat {color:red}
+
+        嵌套选择符
+            p em{font-weight:bold;}
+            不必指明每一级的父对象。
+
+        选择符的优先级
+            如果两个互相冲突的规则应用到了同一个CSS对象上，怎么办？
+            简单来说，选择符越复杂，优先级越高，一样复杂，后出现的优先级高。
+
+            详细一点，通过计算选择符的特征值决定其优先级，
+                特征值=(a,b,c),其中a是选择符中id属性的数量，c是选择符中html选择符的数量，b是其他属性的数量（如lei，伪类）。比较时，a大的那个优先级高，a相同才看b，b相同才看c。
+        AT规则
+            css2.1规定了三纵有效的at规则， @import，@media，@page
+
+        扩展选择符
+            全局选择符 *
+                匹配所有东西。
+                body *{color:black; background:white;} //定义了所有文本的字体和背景色。
+            子对象选择符 >
+                pipe对象的直接子级
+                body > p{}  // 匹配 直接嵌套在body中的p对象
+            相邻选择符 +
+                h1+h2 匹配紧跟在h1后面的h2对象
+            属性选择符
+                匹配具有某个特定属性或特定属性值的对象
+                <对象名>[<attr-name>=<value>]
+                a[title] 匹配带有title属性的a对象
+                abbr[title=Cascading Styel Sheet] 匹配带有title属性且title属性的值是"Cascading Styel Sheet"的abbr对象
+
+                ~= 匹配用空格隔开的字词列表，其中属性的值包含在列表中
+                |=匹配用连字符隔开的字词列表，其中，属性的值作为列表的开始
+                    abbr[xml:lang|=en] 可以同时匹配上 xml:lang="en" xml:lang="en-un"
+        继承
+            一些属性会继承，而一些则不会，没有通用的规则判定那个属性是默认继承的，但按常规的理解就好，比如，希望颜色和字体得到继承，但不会希望子对象和父对象一样高。
+    属性
+
+    属性的值
+        不同的属性的值往往不同，但有一些属性值是通用的，如度量单位和颜色值。
+
+        单位：数字，百分比，长度
+            ----------------------------------------
+            单位                      后缀                  例子
+            数字                      [none]              line-height:1.5
+            百分比                     %                  width:80%
+
+            长度  em                  em                  font-size:2em
+                  pixel               px                  font-size:16px
+                  point               pt                  font-size:12pt
+                  pica                pc                  font-size:10pc
+                  centimeter          cm                  width:10cm
+                  millimeter          mm                  width:100mm
+                  inch                in                  width:2in
+            ----------------------------------------
+            绝对和相对单位
+                绝对单位是固定的，不受任何因素影响，如米，码，厘米等；
+                相对单位的结果依赖于某些事务，如百分比，em。
+                像素实际上是相对单位，它依赖于显示器的分辨率，但把它当作绝对单位考虑是有帮助的。
+        颜色: hex，rgb，预定义颜色名称
+            hex： #fff， #abcdef
+            rgb： rgb(255,255,0), rgb(100%,50%,50%)
+            预定义颜色包括：aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow. transparent也是一个有效的颜色值。
+                现在预定义颜色很少使用，因为它们太具体和有限了。
+            CSS 3 开始，增加了RGBA表示和HSL、HSLA表示。
+                rgba和hsla中的a表示Alpha transparency，其取值范围是[0,1],0表示完全透明，1表示完全不透明。
+                rgb(0,0,0)
+                rgba(0,0,0, 0.8)
+                hsl代表hue, saturation, and lightness(色相，饱和度，亮度)
+
+                h的取值是0～360，每个角度代表一个颜色，0（和360）代表红色，120度是绿色，240度是蓝色
+                s和l的取值范围都是0%～100%。
+                s代表饱和度，越接近100%颜色越鲜艳，0%看起来就是灰色的。
+                l代表亮度，0%是黑色的，100%是白色的，50%是普通水准。
+    将CSS与html关联
+        行内css：依赖于属性style，不提倡使用此方法，通常用于调试。
+        嵌入css：head对象内的sytle标签。
+        外联css：link标签
+                style标签<style type="text/css" media="print">@import url("file.css");<style>
+                         <style type="text/css" >@import url("file.css") print;<style>
+                    style标签的media属性的取值有：screen（计算机屏幕）,print（打印机）,all(所有，和不设置media属性的效果相同)，handheld,tty,tv ...
+                有时候import方法好于link方法，因为前者可以隐藏掉浏览器不支持的css代码。
+三种样式表
+----------------------------------------
+浏览器样式表，作者样式表，用户样式表，优先级依次递增。
+一个所谓无样式页面实际上用的是浏览器默认样式表。
+----------------------------------------
+CSS注释 /* ... */
+--------------------------------------------------------------------------------
+RGB 是对机器很友好的色彩模式，但并不够人性化，因为我们对色彩的认识往往是”什么颜色？鲜艳不鲜艳？亮还是暗？”。
+HSL 模式和 HSV(HSB) 都是基于 RGB 的，是作为一个更方便友好的方法创建出来的。
+
+HSB 为 色相，饱和度，明度，
+HSL 为 色相，饱和度，亮度，
+HSV 为色相，饱和度，明度。
+HSB 和 HSV 是是一样的，只是叫法不同，HSL 则还有一些细微的区别：在所有的情况下，H(Hue) 代表色相，S(Saturation) 代表饱和度。Hue（色相）是指取值范围在0-360°的圆心角，每个角度可以代表一种颜色。B 在 HSB 模式中是 Brightness 的意思, V 在 HSV 中是值，但是所表述的是一个东西：对光的量或光源的功率的感知。饱和度和明度（值）可以在0 - 1或者0% - 100%间取值。
+
+作者：知乎用户
+链接：https://www.zhihu.com/question/22077462/answer/29483467
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+----------------------------------------
+
