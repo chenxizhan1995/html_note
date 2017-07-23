@@ -1,0 +1,134 @@
+
+虽然，图像，动画，视频更加丰富多彩，但简单而古老的文字仍然是最普通的信息表现形式。
+
+2.1 文本内容的组织
+    基本的文本对象：段落、换行、强调
+        <p></p>, <br />, <em> </em>， <strong> </strong>
+        em是斜体强调
+        strong是粗体强调。
+
+        但，em不是i，storng也不是b。
+
+    标题:h1,h2,h3,h4,h5,h6
+        h1是标题的最高级
+        h6是最低一级的子标题。
+        理论上，用一个h1表示页面标题，其下使用若干个h2作为子标题，依次递推。
+    引用文字：blockquote，q，cite
+        blockquote是块对象，
+        q是行内对象，
+        q和blockquote都有一个cite属性，如果可以在互联网上找到引用的出处，使用cite给出引用地址。
+
+        cite标签也可构成引用，行内标签
+
+    简称和缩写：abbr，acronym
+        abbr是简称
+        acronym是缩写（音形式的简称）
+        二者都可用title给出缩写的完整形式。
+
+        缩写是简称的一种，但简称不仅仅包括缩写。
+        css和hmtl是简称，但不是缩写因为他们并不是发音形式
+    保留原格式：pre，code，var，samp
+        pre保留文本的原格式
+        code用于计算机代码
+        var表示变量
+        samp代表程序输出
+    修订：ins（插入），del（删除）
+        虽然很少用，html也有“修订”的概念，
+        二者内部都不可嵌套块级对象。
+        二者都可用datetime属性描述添加或删除的时间，格式为YYYYMMDD，
+        二者都可用cite属性给出一个url链接，解释修正的原因。
+
+    多语种及双向文本：bdo
+        bdo用来定义双向文本，dir属性是必须的，取值为ltr或rtl中的一个。
+
+    地址：address
+文本样式的设定
+    字体 font-family
+        通常，给整个页面定义一个基本字体，然后对特定部分单独定义。
+        font-family用来定义字体类型，它后面是一个用逗号分隔的字体名列表，（如果某个字体名有空格，需要用引号括起），当浏览器找不到前面的字体时，会依次尝试后面的字体。浏览器只能显示电脑上已经安装的字体。
+
+        不同的操作系统所能提供的字体会有不同，arial常见于PC上，helvetica常见于Macs上，serif，sans-serif，monospace则得到了普遍支持。所以可以这样设定默认字体。
+        body{font-family:"Times New Roman"}
+        h2 {font-family:arial,helvetical, sans-serif}
+
+    颜色 color, background-color
+    字号 font-size
+        字体大小常用px，em和%作为单位。
+        建议使用em，建议不使用px，这是出于友好性的考虑。
+
+        如果用px定义字体大小，那么，IE浏览器缩放页面时，字体不会跟着缩放，（但火狐，谷歌就可以）
+        所以，为了使用IE浏览器，相对字体大小是唯一的选择；然而，当用em指定字体大小时，字体出于IE浏览器上的较小字体时可能看不清楚，这回过来又违背了可用性，解决方法是，用百分比指定初始字体大小，然后用em的方式表示。
+        body{font-size:8-%}
+        h1{font-size:2em}
+        h2{font-size:1.5em}
+    行高 line-height
+        line-height和z-index是仅有的两个不需要后缀的属性，对line-heiht属性来说，1.5和1.5em是完全一样的。当然，长度和百分比同样可用。
+    粗体和斜体 font-weight,font-style
+    大小写 font-variant, text-transform
+        font-variant:small-caps 会把小写字母转换成小个的大写字母
+        相对，text-transform功能更强大，uppercase, lowercase, capitalize(单词首字母大写)
+
+    font属性 font-style font-variant font-size/line-height font-family
+        其中，只有font-size和font-family是必须的。
+
+        font会重置属性，在应用属性之前，fong属性会重置font-style font-variant font-size/line-height font-family属性到它的初始化定义。
+        如，
+        .wooha{
+            font-weight:bold;
+            font-variant: small-caps;
+            font: 2em arial;
+        }
+        bold和small-caps将不能得到应用，因为紧随其后的font属性将他们覆盖掉了。
+    下划线和删除线 text-decoration: unerline, overline, linethrough, noen
+        下划线经常憋当作链接，容易引起误解，所以点状下划线 border-bottom: 1px dotted出现了，但即便如此，仍会有些令人误解。
+
+    字母间距和词间距 letter-spacing, word-spacing
+        当心，滥用两个属性会使页面乱七八糟，但恰当的使用会收到很棒的效果。
+        如，在标题上显示出一点与众不同，
+        h1 {
+            letter-spacing: 0.3em;
+            word-spacing: 1em;
+        }
+
+    缩进 text-indent
+        设置框结构中文字首航缩进量。
+    水平对齐 text-align: center, left, right, justify(自动调整)
+        提示：左对齐更易阅读，故如无特殊原因，不用自动调整。
+    垂直对齐 vertical-align: top, middle, bottom, text-top, text-bottom, sub, super
+        可用的属性值有top, middle, bottom, text-top, text-bottom, sub（下标）, super（上标），前提是应用样式的自通小于行内的其他字体。
+        此属性仅用于行内对象，而不是用于使整个页面垂直对齐。
+        要实现垂直对齐，应该用position（定位），有些复杂。
+区分cite标签和q,blockquote
+----------------------------------------
+至于如何区分cite标签和q,blockquote的作用，也可以举2个例子：
+
+q与cite：
+
+　　<q>废那事干啥，直接上不就得了</q>，<cite>黑皮</cite>先生如是说。
+
+blockquote与cite：
+
+　　<blockquote>
+　　　<pre>
+　　　   最是那一低头的温柔，
+　　　   象一朵水莲花不胜凉风的娇羞，
+　　　   道一声珍重，道一声珍重，
+　　　   那一声珍重里有蜜甜的忧愁——
+　　　   沙扬娜拉！
+　　　</pre>
+　　</blockquote>
+　　<p>——摘自<cite>《志摩的诗》</cite></p>
+
+　　cite,q,blockquote三者虽然都有引用的作用，但却各司其职，互不干涉。
+
+
+
+----------------------------------------
+
+实践
+--------------------------------------------------------------------------------
+    组织文字方面的坏习惯
+        本该用段落，却简单的用两个换行代替，（许多时候，两个换行和段落的表现形式是一样的）
+        本该用标题，却用大号的粗体字代替
+
+        虽然看起来一样，但不是好习惯。
