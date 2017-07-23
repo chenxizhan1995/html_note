@@ -27,3 +27,26 @@ font会重置属性
         bold和small-caps将不能得到应用，因为紧随其后的font属性将他们覆盖掉了。
 点状下划线
         下划线经常憋当作链接，容易引起误解，所以点状下划线 border-bottom: 1px dotted出现了，但即便如此，仍会有些令人误解。
+友好的弹出窗口
+    使用弹出窗口要小心。
+    可以遵循下面的步骤以使它更加友好
+    首先，用title属性告知用户点击此链接会创建一个新的弹出窗口，
+    其次，如果用javaScript启动弹出窗口，它的返回值应该设为false，这样，如果用户禁用了js，仍然可以导航过去，只不过不是通过弹出窗口而已。
+    <a href="eviltroll.html" title="Launch Evil in a little pop-up" onclick="popup(this); return false;">Evil Troll</a>
+导航栏掠过
+        考虑到用户有时候希望直接定位到导航栏而不用阅读全部的导航，可以创建一些链接让用户直接定位到正文部分。
+
+        <p class="accessid"><a href="#content">Skip to content</a>
+        <!--[ big chunk of navigation] -->
+        <div id="content">
+            <!--[the nitty gritty] -->
+        </div>
+
+        如果不需要，可以在CSS中设置隐藏。
+        .accessid{
+            position:absolute;
+            height:0;
+            overflow:hidden;
+        }
+
+        反过来，可以让正文位于导航栏的前面，然后添加“skip to navigation"链接。
