@@ -1,0 +1,72 @@
+This section is informative.
+
+因为XHTML实际上是一个XML application这一事实，一些在HTML 4中正确的实践在XHTML中已经不正确了。
+
+4.1. Documents must be well-formed
+    良定义（well-formed）的xml文档是指该xml文档符合基本的xml规则。与之对应的，有效的xml文档是指符合xml规则且同时符合相关联的描述文件（如DTD文件）的约束的xml文档。
+    特别地，元素必须正确地嵌套。
+4.2. Element and attribute names must be in lower case（元素和属性名必须小写）
+
+4.3. For non-empty elements, end tags are required（非空元素必须有对应的闭合标签）
+    在HTML4中，省略某些元素的闭合标签是合乎规则的，但在xml中（从而在xhtml中），闭合标签是不能省略的。在XML的规则中，所有的标签都必须有对应的闭合标签，而在DTD中被声明为“EMPTY"的标签可以使用闭合标签或使用空元素缩写。如<br><br/> 也可写作 <br />.
+
+4.4. Attribute values must always be quoted（所有的属性值必须用引号括起）
+4.5. Attribute Minimization
+    XML中不支持属性极小化，所有的属性都必须显式给出其属性值。
+4.6. Empty Elements（空元素）
+    空元素必须有闭合标签或使用空元素简写。
+4.7. White Space handling in attribute values
+
+    When user agents process attributes, they do so according to Section 3.3.3 of [XML]:
+
+    Strip leading and trailing white space.
+    Map sequences of one or more white space characters (including line breaks) to a single inter-word space.
+
+    处理属性值时，开头和结尾的空白被忽略；一个或多个空白字符组成的序列被映射为单个的空白字符。
+4.8. Script and Style elements
+
+    In XHTML, the script and style elements are declared as having #PCDATA content. As a result, < and & will be treated as the start of markup, and entities such as &lt; and &amp; will be recognized as entity references by the XML processor to < and & respectively. Wrapping the content of the script or style element within a CDATA marked section avoids the expansion of these entities.
+
+    <script type="text/javascript">
+    <![CDATA[
+    ... unescaped script content ...
+    ]]>
+    </script>
+    CDATA sections are recognized by the XML processor and appear as nodes in the Document Object Model, see Section 1.3 of the DOM Level 1 Recommendation [DOM].
+
+    An alternative is to use external script and style documents.
+
+    在XHTML中，script和style元素的内容默认为#PCDATA格式，此格式下，<和&有特殊含义，要避免转义，可以在这两个元素里面里面使用使用CDATA字段。
+4.9. SGML exclusions
+
+    SGML gives the writer of a DTD the ability to exclude specific elements from being contained within an element. Such prohibitions (called "exclusions") are not possible in XML.
+
+    For example, the HTML 4 Strict DTD forbids the nesting of an 'a' element within another 'a' element to any descendant depth. It is not possible to spell out such prohibitions in XML. Even though these prohibitions cannot be defined in the DTD, certain elements should not be nested. A summary of such elements and the elements that should not be nested in them is found in the normative Element Prohibitions.
+
+    SGML的语法允许指明某个元素内不能嵌套某个元素，但在XML中，没有规则可以给出此类定义，但XHTML确实有一些元素不能嵌套在另一些元素中。
+
+4.10. The elements with 'id' and 'name' attributes（带有id和name属性的元素）
+    HTML 4为a、applet、form、frame、iframe、img、map元素定义了name和id属性，这二者都可作为代码段的标识符使用。
+    在xml中，代码段标识符必须是ID类型，并每个元素只能有一个ID类型的属性。所以在XHTML1.0中，id属性被定义为元素的代码段标识符。
+    同时，在XHTML 1.0中，name属性已标记为过时，后继版本的xhtml规范会移除name属性。
+
+4.11. Attributes with pre-defined value sets
+
+    HTML 4 and XHTML both have some attributes that have pre-defined and limited sets of values (e.g. the type attribute of the input element). In SGML and XML, these are called enumerated attributes. Under HTML 4, the interpretation of these values was case-insensitive, so a value of TEXT was equivalent to a value of text. Under XML, the interpretation of these values is case-sensitive, and in XHTML 1 all of these values are defined in lower-case.
+
+4.12. Entity references as hex values（作为十六进制值的实体引用）
+
+    SGML和XML都允许通过字符的十六进制值指定字符，在SGML中可以使用&#Xnn;和&#Xnn;两种格式，但xml中，只允许使用小写格式&#xnn;
+
+
+--------------------------------------------------------------------------------
+xhtml的元素必须正确地嵌套；
+xhtml的元素的闭合标签不能省略，但空元素允许使用空元素简写代替闭合标签；
+xhtml是大小写敏感的；
+xhtml的元素名和属性名都是用小写字母；
+xhtml的属性必须显式指定属性值；
+xhtml的属性值都必须用引号括起；
+
+
+
+xml是大小写敏感的，这意味着，所有的元素名、属性名、属性值的大写和小写是有区别的。
