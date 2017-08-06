@@ -125,3 +125,29 @@ C. HTML Compatibility Guidelines
     C.16. The Named Character Reference &apos;
 
     The named character reference &apos; (the apostrophe, U+0027) was introduced in XML 1.0 but does not appear in HTML. Authors should therefore use &#39; instead of &apos; to work as expected in HTML 4 user agents.
+
+--------------------------------------------------------------------------------
+建议在XHTML中使用Processing Instruction和xml声明。因为某些用户代理会认为带有XML声明的文档是XML文档而不是HTML文档，进而产生非预期的渲染效果，所以可以省略xml声明，但要注意，省略xml声明后，文档编码只能是默认的utf8和utf16中的一种；
+
+空元素有两种格式比如，<br></br>和<br />,但推荐使用后者，因为前者在许多用户代理中会产生非预期效果。同时注意，后者元素名称和斜杠之间的空格是必要的。
+
+如果样式表中使用了&或<或]]>或--字符，那么应该把它们放在外部链接文件中；
+如果脚本代码中使用了&或<或]]>或--字符，那么应该把它们放在外部链接文件中；
+XML处理器被允许无声无息地移除注释内容，故而，位于注释中的”隐藏“脚本虽然在html4中可以良好工作，但在基于xml的用户代理中则会失去效果。
+
+避免在属性值内部使用换行和连续空白，因为不同的用户代理的处理效果不同。
+
+建议同时使用mxl:lang和lang属性（前者具有更高的优先级）。
+
+
+在xhtml中，只有id属性可以用作代码段的标识符，name不再具有此功能。为了最大限度的保持前向和后向兼容，可以同时使用id和name属性，但要注意，同一元素内这两个属性的值必须一致（这一点无法通过DTD强制约束，全靠开发者自觉遵守），另外，xhtml 1.0将 a, applet, form, frame, iframe, img, 和 map 元素的name属性标记为过时，这几个元素的name属性将会在后继版本的xhtml规范中移除。
+
+
+字符编码
+    最好的方式是html服务器在http头中设定html页面的编码，如果难以做到，可以在html文档内指定，但强烈建议同时使用xml声明和meta元素指定（在xhtml一致的用户代理中，xml声明中指定的字符编码具有更高的优先级）。
+
+在SGML和XML中，&都标志着引用实体的开始。比如，&reg;代表符号®（圆圈里一个字符R）。html用户代理会容忍错误的&转义序列，并将它们当作字面字符理解，但基于xml的用户代理则不会容忍此类错误而是认为文档无效，为了保证一致性，在需要使用&字符的地方一定要用&apm;（&字符的引用实体表示形式）而不要直接使用&。比如，
+元素a的href属性的值应该写作
+    http://my.site.dom/cgi-bin/myscript.pl?class=guest&amp;name=user
+而不是
+    http://my.site.dom/cgi-bin/myscript.pl?class=guest&name=user.
