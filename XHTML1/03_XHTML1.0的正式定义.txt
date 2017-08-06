@@ -1,0 +1,88 @@
+This section is normative.
+
+3.1. Document Conformance（文档一致性）
+    此版本的XHTML规范提供了XHTML1.0的严格定义，也就是，严格限制元素和属性的名称空间为 XHTML 和 XML 名称空间。
+3.1.1. Strictly Conforming Documents（严格一致的文档）
+    一个严格一致的文档，其实就是一个符合本规范中规定的附加强制约束的XML文档。这种文档必须符合以下全部规则：
+
+    1）It must conform to the constraints expressed in one of the three DTDs found in DTDs and in Appendix B.
+        它必须符合相应DTD文档的约束和附录B中的约束。
+    2）The root element of the document must be html
+        文档的根元素必须是html
+    3）The root element of the document must contain an xmlns declaration for the XHTML namespace [XMLNS]. The namespace for XHTML is defined to be http://www.w3.org/1999/xhtml. An example root element might look like:
+        文档的根元素必须包含一个xmlns声明，XHTML的命名空间声明被定义为：http://www.w3.org/1999/xhtml. 示例如下
+
+            ----------------------------------------
+            <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+            <!-- ///.. -->
+            </html>
+            ----------------------------------------
+
+    4）There must be a DOCTYPE declaration in the document prior to the root element. The public identifier included in the DOCTYPE declaration must reference one of the three DTDs found in DTDs（https://www.w3.org/TR/xhtml1/#dtds） using the respective Formal Public Identifier. The system identifier may be changed to reflect local system conventions.
+        在根元素之前必须有一个文档类型声明，文档类型声明中的公有标识符必须指向三个DTD中的一个，当然，公有标识符要和指定的DTD文档对应。共公有标识符可以用系统标识符替换（以便在不能联网的应用中使用预下载好的DTD）。
+        ----------------------------------------
+        <!DOCTYPE html
+             PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+        <!DOCTYPE html
+             PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+        <!DOCTYPE html
+             PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+        ----------------------------------------
+    5)The DTD subset must not be used to override any parameter entities in the DTD.
+
+    An XML declaration is not required in all XML documents; however XHTML document authors are strongly encouraged to use XML declarations in all their documents. Such a declaration is required when the character encoding of the document is other than the default UTF-8 or UTF-16 and no
+    encoding was determined by a higher-level protocol. Here is an example of an XHTML document. In this example, the XML declaration is included.
+    XML声明在XML文档中不是必需的，但强烈建议在XHTML文档中使用XML声明。当文档的字符编码不是默认的UTF-8和UTF-16中的一个且没有任何上层协议指明文档的字符编码时，XML声明是必要的。
+    ----------------------------------------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE html
+         PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+      <head>
+        <title>Virtual Library</title>
+      </head>
+      <body>
+        <p>Moved to <a href="http://example.org/">example.org</a>.</p>
+      </body>
+    </html>
+    ----------------------------------------
+3.1.2. Using XHTML with other namespaces
+    在XHTML文档中，可以引入其它的XML名称空间（虽然这不符合上述的XHTML规范）。
+3.2. User Agent Conformance（用户代理一致性）
+    一个一致的用户代理必须符合以下所有规则：
+      In order to be consistent with the XML 1.0 Recommendation [XML], the user agent must parse and evaluate an XHTML document for well-formedness. If the user agent claims to be a validating user agent, it must also validate documents against their referenced DTDs according to [XML].
+
+      When the user agent claims to support facilities defined within this specification or required by this specification through normative reference, it must do so in ways consistent with the facilities' definition.
+
+      When a user agent processes an XHTML document as generic XML, it shall only recognize attributes of type ID (i.e. the id attribute on most XHTML elements) as fragment identifiers.
+
+      If a user agent encounters an element it does not recognize, it must process the element's content.
+
+      If a user agent encounters an attribute it does not recognize, it must ignore the entire attribute specification (i.e., the attribute and its value).
+
+      If a user agent encounters an attribute value it does not recognize, it must use the default attribute value.
+
+      If it encounters an entity reference (other than one of the entities defined in this recommendation or in the XML recommendation) for which the user agent has processed no declaration (which could happen if the declaration is in the external subset which the user agent hasn't read), the entity reference should be processed as the characters (starting with the ampersand and ending with the semi-colon) that make up the entity reference.
+
+      When processing content, user agents that encounter characters or character entity references that are recognized but not renderable may substitute another rendering that gives the same meaning, or must display the document in such a way that it is obvious to the user that normal rendering has not taken place.
+
+      White space is handled according to the following rules. The following characters are defined in [XML] white space characters:
+
+        SPACE (&#x0020;)
+        HORIZONTAL TABULATION (&#x0009;)
+        CARRIAGE RETURN (&#x000D;)
+        LINE FEED (&#x000A;)
+
+        The XML processor normalizes different systems' line end codes into one single LINE FEED character, that is passed up to the application.
+
+      The user agent must use the definition from CSS for processing whitespace characters [CSS2]. Note that the CSS2 recommendation does not explicitly address the issue of whitespace handling in non-Latin character sets. This will be addressed in a future version of CSS, at which time this reference will be updated.
+
+      Note that in order to produce a Canonical XHTML document, the rules above must be applied and the rules in [XMLC14N] must also be applied to the document.
+
+      有两条重要的规则：如果遇到不能识别的元素，用户代理必须处理元素的内容；如果遇到不能识别的属性，用户代理必须忽略属性和对应的属性值；如果遇到不能识别的属性值，就是用该属性默认的属性值。
