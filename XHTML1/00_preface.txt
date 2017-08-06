@@ -1,0 +1,19 @@
+概要
+    本规范（specification）定义了XHTML1.0的第二版，XHTML 1.0 是HTML 4 作为XML 1.0应用的重写版，？？？。
+    This specification defines the Second Edition of XHTML 1.0, a reformulation of HTML 4 as an XML 1.0 application, and three DTDs corresponding to the ones defined by HTML 4.
+
+    W3C的HTML4的规范中定义了元素的语义和元素的属性。这些语义为XHTML在将来的扩展提供了基础。如果能遵循一些简单的指导，就能使XHTML页面与现有的HTML代理保持一致。
+
+
+    ----------------------------------------
+    XHTML是HTML4在XML1.0下的改写版本。
+    XHTML中元素的语义和各元素的属性在HTML4.0中定义。
+    只要遵循一些简单的指导就能使XHTML与现有的HTML代理保持兼容性。
+    ----------------------------------------
+
+本文档当前的状态
+    这里描述的是本文档发布的时间点上，文档的状态，其它文档可能会取代此文档。本系列文档的最新状态在W3C的官网上维护。
+
+    此文档是XHTML 1.0规范的第二版（second edition），与第一版的主要差异是修正了一些错误。
+
+    本文档并不是XHTML 1.0规范的新版本（new version），它只是修正了一些错误。
