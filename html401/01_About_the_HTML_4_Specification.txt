@@ -1,0 +1,38 @@
+1.1 How the specification is organized（文档组织）
+    Sections 2 and 3: Introduction to HTML 4
+    Sections 4 - 24: HTML 4 reference manual
+
+    The language reference consists of the following information:
+
+        What characters may appear in an HTML document.
+
+        Basic data types of an HTML document.
+
+        Elements that govern the structure of an HTML document, including text, lists, tables, links, and included objects, images, and applets.
+
+        Elements that govern the presentation of an HTML document, including style sheets, fonts, colors, rules, and other visual presentation, and frames for multi-windowed presentations.
+
+        Elements that govern interactivity with an HTML document, including forms for user input and scripts for active documents.
+
+        The SGML formal definition of HTML:
+
+        The SGML declaration of HTML.
+        Three DTDs: strict, transitional, and frameset.
+        The list of character references.
+
+    Appendixes
+    References
+        A list of normative and informative references.
+    Indexes
+        Three indexes give readers rapid access to the definition of key concepts, elements and attributes.
+
+1.2 Document conventions(约定)
+
+    此文档面向两类读者对象：authors 和 implementors。
+
+1.2.1 Elements and attributes
+    html中，元素名和属性名称是大小写不敏感的。
+    约定元素名称大写，属性名称小写，以提高可读性。
+
+    每个属性定义都依次指明了属性值的类型、属性值大小写敏感信息；如果属性值是一个集合，那么在属性值类型之后会给出该取值集合，每个取值用|分隔。
+1.2.2 Notes and examples
