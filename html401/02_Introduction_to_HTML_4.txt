@@ -1,0 +1,108 @@
+2.1 What is the World Wide Web?
+    The World Wide Web (Web) is a network of information resources. The Web relies on three mechanisms to make these resources readily available to the widest possible audience:
+
+        A uniform naming scheme for locating resources on the Web (e.g., URIs).
+        Protocols, for access to named resources over the Web (e.g., HTTP).
+        Hypertext, for easy navigation among resources (e.g., HTML).
+
+    The ties between the three mechanisms are apparent throughout this specification.
+
+    web是一个巨大的信息资源网络，web依赖三大机制使这些资源最大程度的可用。
+    uri，http，html。
+
+    2.1.1 Introduction to URIs
+
+        Web上的任何一个可用资源（html文档，图片，音频，程序等）都有一个可编码为URI的地址。
+        典型的URI地址由三部分组成：
+            最前面的naming scheme（如htpp协议的http,发邮件用的mailto,FTP协议的ftp等）
+            随后的存储资源的主机名
+            最末尾的资源本身的名字（以路径的方式给出）
+        比如，http://www.w3.org/TR 的含义是，在机器www.w3.org上有一个可通过http协议获得的文档，此文档可通过路径/TR访问。
+
+        注：URL比URI更让人熟悉，其实，所有的URL组成的集合是URI集合的子集。
+    2.1.2 Fragment identifiers（片断标识）
+        一些URI指向一个资源内部的某个位置，这一类的URI的末尾是一个#后跟一个锚点标识符（称为片段标识符），下面的URI指向一个名为section_2的锚点：
+        http://somesite.com/html/top.html#section_2
+
+    2.1.3 Relative URIs（相对标识符）
+        相对URI是不包含naming scheme信息的URI。这类URI的路径指向和当前文档位于相同主机上的资源。
+        相对URI可以使用相对路径组将（如"..""),并且可以包含片段标识符。
+
+        相对URI会被解析为全路径URI，解析过程借助一个基URI（base uri），假设有一个基础RUI "http://www.acme.com/support/intro.html"，则下面的相对URI
+           <A href="suppliers.html">Suppliers</A>
+        会扩展为完全URI "http://www.acme.com/support/suppliers.html",
+        而下面的这个相对URI
+           <IMG src="../icons/logo.gif" alt="logo">
+        则会扩展为完全URI "http://www.acme.com/icons/logo.gif".
+
+2.2 What is HTML?
+    将HTML解释为一种几乎所有计算机都可以理解的用以发布信息的语言。
+    To publish information for global distribution, one needs a universally understood language, a kind of publishing mother tongue that all computers may potentially understand. The publishing language used by the World Wide Web is HTML (from HyperText Markup Language).
+
+    HTML gives authors the means to:
+
+    Publish online documents with headings, text, tables, lists, photos, etc.
+    Retrieve online information via hypertext links, at the click of a button.
+    Design forms for conducting transactions with remote services, for use in searching for information, making reservations, ordering products, etc.
+    Include spread-sheets, video clips, sound clips, and other applications directly in their documents.
+
+    2.2.1 A brief history of HTML（HTML简史）
+
+2.3 HTML 4
+
+    HTML 4 扩展了HTML，具体说，增加了样式表，脚本，框架，内嵌对象，对文本方向的增强支持，更丰富的表格和更强大的表单，增强了残疾人士的可访问性。
+    HTML 4.01是HTNL 4 的一个修订版，修正了一些错误。
+
+    2.3.1 Internationalization（国际化）
+
+        此版本的HTML可以用任何语言编写，可以容易的在世界各地分发，
+        其中的一大改进就是采用了SO/IEC:10646 标准作为HTML文档的字符集。
+
+    2.3.2 Accessibility（可访问性）
+
+        新增的可增强可访问性的特性有：
+            Better distinction between document structure and presentation, thus encouraging the use of style sheets instead of HTML presentation elements and attributes.
+
+            Better forms, including the addition of access keys, the ability to group form controls semantically, the ability to group SELECT options semantically, and active labels.
+
+            The ability to markup a text description of an included object (with the OBJECT element).
+
+            A new client-side image map mechanism (the MAP element) that allows authors to integrate image and text links.
+
+            The requirement that alternate text accompany images included with the IMG element and image maps included with the AREA element.
+            Support for the title and lang attributes on all elements.
+
+            Support for the ABBR and ACRONYM elements.
+
+            A wider range of target media (tty, braille, etc.) for use with style sheets.
+
+            Better tables, including captions, column groups, and mechanisms to facilitate non-visual rendering.
+
+            Long descriptions of tables, images, frames, etc.
+    2.3.3 Tables
+    2.3.4 Compound documents
+        HTML now offers a standard mechanism for embedding generic media objects and applications in HTML document，OBJECT element。
+
+        OBJECT元素（和它的具体祖先IMG和APPLET）提供了在HTML内嵌如图片、视频、音频、专业应用程序的机制，并允许作者指定替代渲染项以便用户代理无法渲染指定内容不至于无事可做。
+
+    2.3.5 Style sheets && 2.3.6 Scripting
+        样式表的使用大大减轻了HTML中表现层的工作；
+        脚本的使用，使得创建动态网页成为可能。
+        将样式表关联到HTML页面中的机制，与样式表语言无关。
+        将脚本嵌如到HTML页面中的机制与脚本语言无关。
+    2.3.7 Printing
+
+2.4 Authoring documents with HTML 4
+    建议HTML页面的作者和HTML代理的实现这遵循下面的普适规则。
+
+    2.4.1 Separate structure and presentation（分离结构与表现）
+
+    2.4.2 Consider universal accessibility to the Web（关注普适的可访问性）
+        需要全面地考虑html页面的可访问性，着重考虑残疾人群。页面作者要考虑不同平台上的渲染效果：基于效率的浏览器，盲文阅读器等等。
+
+        浏览页面的人的计算机的配置会相差很多。因此，作者应当给出文档的必要信息：如使用的语种，文本的阅读方向，文档字符编码，以及其它关乎国际化的信息。
+
+        更要注意的是，浏览页面的人群不仅仅限于计算机专业的人，不熟悉计算机的阅读者占更多的比重。
+2.4.3 Help user agents with incremental rendering
+
+    要注意运用HTML4新增的表格增量渲染特性，以提高浏览器渲染速度。
