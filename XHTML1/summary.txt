@@ -2,3 +2,4 @@ XHTML是一个文档家族，家族内含有许多文档类型（type）和文�
 XHTML 1.0是这个家族的第一个文档类型。
 
 XHTML是HTML 4 和 XML 的混血儿，它同时具有HTML 4和XML的特性：它用XML的规则定义HTML4.0的元素。
+也就是，XHTML文档本质上是一个XML文档，但它同时又可以被看作是HTML 4.0文档。

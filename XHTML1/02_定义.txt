@@ -1,0 +1,53 @@
+This section is normative.
+
+2.1. Terminology
+
+    The following terms are used in this specification. These terms extend the definitions in [RFC2119] in ways based upon similar definitions in ISO/IEC 9945-1:1990 [POSIX.1]:
+
+    May
+        With respect to implementations, the word "may" is to be interpreted as an optional feature that is not required in this specification but can be provided. With respect to Document Conformance, the word "may" means that the optional feature must not be used. The term "optional" has the same definition as "may".
+    Must
+        In this specification, the word "must" is to be interpreted as a mandatory requirement on the implementation or on Strictly Conforming XHTML Documents, depending upon the context. The term "shall" has the same definition as "must".
+    Optional
+        See "May".
+    Reserved
+        A value or behavior is unspecified, but it is not allowed to be used by Conforming Documents nor to be supported by Conforming User Agents.
+    Shall
+        See "Must".
+    Should
+        With respect to implementations, the word "should" is to be interpreted as an implementation recommendation, but not a requirement. With respect to documents, the word "should" is to be interpreted as recommended programming practice for documents and a requirement for Strictly Conforming XHTML Documents.
+    Supported
+        Certain facilities in this specification are optional. If a facility is supported, it behaves as specified by this specification.
+    Unspecified
+        When a value or behavior is unspecified, the specification defines no portability requirements for a facility on an implementation even when faced with a document that uses the facility. A document that requires specific behavior in such an instance, rather than tolerating any behavior when using that facility, is not a Strictly Conforming XHTML Document.
+    这段话，指明了本规范中若干词语的含义，以免引起误解。
+
+    may和optional表示可选的特性；
+    must和shall表示强制实现的特性；
+    should表示，最佳实践，是建议但不是强制要求；
+    reserved，supported，unsupported，什么意思？
+
+2.2. General Terms
+
+    Attribute
+        An attribute is a parameter to an element declared in the DTD. An attribute's type and value range, including a possible default value, are defined in the DTD.
+    DTD
+        A DTD, or document type definition, is a collection of XML markup declarations that, as a collection, defines the legal structure, elements, and attributes that are available for use in a document that complies to the DTD.
+    Document
+        A document is a stream of data that, after being combined with any other streams it references, is structured such that it holds information contained within elements that are organized as defined in the associated DTD. See Document Conformance for more information.
+    Element
+        An element is a document structuring unit declared in the DTD. The element's content model is defined in the DTD, and additional semantics may be defined in the prose description of the element.
+    Facilities
+        Facilities are elements, attributes, and the semantics associated with those elements and attributes.
+    Implementation
+        See User Agent.
+    Parsing
+        Parsing is the act whereby a document is scanned, and the information contained within the document is filtered into the context of the elements in which the information is structured.
+    Rendering
+        Rendering is the act whereby the information in a document is presented. This presentation is done in the form most appropriate to the environment (e.g. aurally, visually, in print).
+    User Agent
+        A user agent is a system that processes XHTML documents in accordance with this specification. See User Agent Conformance for more information.
+    Validation
+        Validation is a process whereby documents are verified against the associated DTD, ensuring that the structure, use of elements, and use of attributes are consistent with the definitions in the DTD.
+    Well-formed
+        A document is well-formed when it is structured according to the rules defined in Section 2.1 of the XML 1.0 Recommendation [XML].
