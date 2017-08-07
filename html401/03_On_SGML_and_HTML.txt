@@ -1,0 +1,208 @@
+This section of the document introduces SGML and discusses its relationship to HTML. A complete discussion of SGML is left to the standard (see [ISO8879]).
+
+
+3.1 Introduction to SGML
+
+    SGML是一个定义标记语言的系统。HTML是用SGML定义的一个标记语言例子。标记语言的将内容和结构信息、表现信息、语义信息一块展现出来。
+
+    每个使用SGML定义的标记语言都叫做一个SGML应用（SGML application）。
+
+    一个SGML应用通常具有下列特征：
+        An SGML declaration. The SGML declaration specifies which characters and delimiters may appear in the application.
+        A document type definition (DTD). The DTD defines the syntax of markup constructs. The DTD may include additional definitions such as character entity references.
+        A specification that describes the semantics to be ascribed to the markup. This specification also imposes syntax restrictions that cannot be expressed within the DTD.
+        Document instances containing data (content) and markup. Each instance contains a reference to the DTD to be used to interpret it.
+
+3.2 SGML constructs used in HTML
+
+    本小节介绍在HTML中用到的SGML结构。
+
+    每个元素类型声明（element type declaration）分为三个部分：一个开始标签（start tag），内容（content），一个结束标签（end tag）。
+
+    在使用时，有的HTML元素（如p，li）允许省略结束标签，有的则允许省略开始标签（如head，body）。
+
+    有些标签的内容是空的（如br），内容为空的元素，没有结束标签。
+
+    在HTML 4中，所有的元素名字都是大小写不敏感的
+
+    注： 元素和标签是两码事。
+
+    3.2.2 Attributes
+
+        Elements may have associated properties, called attributes, which may have values (by default, or set by authors or scripts). Attribute/value pairs appear before the final ">" of an element's start tag. Any number of (legal) attribute value pairs, separated by spaces, may appear in an element's start tag. They may appear in any order.
+
+        元素可以有属性，属性有值，属性和它的值合称属性/值对，元素的属性出现在开始标签的">"之前；
+        属性出现的顺序无关紧要；
+        属性之间用空格分隔。
+
+        默认，SGML要求所有的属性值用双引号或单引号括起。如果属性值本身包含单引号，那么就用双一号将属性值括起，反之亦然。
+        还可以用数字字符引用（numeric character references）代表双引号(&#34;) 和单引号 (&#39;)。
+        对于双引号，还可以用字符实体引用（character entity reference）&quot;表示。
+
+        属性值只能由数字、字母、下划线、句点、冒号、连字符组成。
+
+    3.2.3 Character references（字符引用）
+
+        Character references are numeric or symbolic names for characters that may be included in an HTML document.
+        字符引用是字符的数值或符号名字。
+        字符引用以&开头，以;结尾。
+
+    3.2.4 Comments(注释)
+
+        HTML注释的语法如下
+
+            <!-- this is a comment -->
+            <!-- and so is this one,
+                which occupies more than one line -->
+            开头的<!和-- 之间不能有空格
+            结尾的--和>之间可以有空格；
+            注释中不要包含两个连续的连字符（--），如果必须有，请使用字符引用。因为字符引用代表的字符不再具有特殊意义。
+
+3.3 How to read the HTML DTD
+    在本规范内，决定使用DTD而不是看似更简短更易理解的自然语言描述元素和属性的定义，因为DTD更精确。
+
+    3.3.1 DTD Comments
+
+        在DTD中，注释用两个连续的下划线标记，注释可占一行或多行。
+
+        <!ELEMENT PARAM - O EMPTY       -- named property value -->
+
+    3.3.2 Parameter entity definitions（参数实体定义）
+
+        在HTML的DTD的开头是一系列的参数实体定义，参数实体定义是一种类似于宏的东西，定义的宏可以在DTD的其它地方引用并自动扩展开来。DTD的参数实体定义只能在DTD中使用而不能出现在HTML中。
+
+        另外有一种叫做“字符引用”的宏可以出现在HTML的任何地方。
+
+        A parameter entity definition begins with the keyword <!ENTITY % followed by the entity name, the quoted string the entity expands to, and finally a closing >. Instances of parameter entities in a DTD begin with "%", then the parameter entity name, and terminated by an optional ";".
+
+        参数实体定义以<!ENTITY % 开头，后跟实体名，其后跟实体名将要扩展成的字符串，最后是标志结束的符号 >
+        Syntax:
+        <!ENTITY % parameterEntityName "replacementText">
+
+        Usage:
+        %parameterEntityName;
+        示例：
+        <!ENTITY % fontstyle "TT | I | B | BIG | SMALL">
+
+        <!ENTITY % inline "#PCDATA | %fontstyle; | %phrase; | %special; | %formctrl;">
+
+        HTML DTD中有两个及其常用的参数实体"%block;" "%inline;"。
+    3.3.3 Element declarations（元素声明）
+        HTML DTD定义了元素的类型和属性。关键字 <!ELEMENT 标志着声明的开始，字符 > 标志着声明的结束。在这之间，指明以下信息：
+            元素的名字；
+
+            元素标签（tag）是否可省略，两个连字符表示开始和结束标签都不能省略；一个连字符后紧跟一个大写字母O表示仅可以省略结束标签；两个大写字母O表示结束开始和结束标签都可以省略；
+
+            元素的内容；如果元素内容限定为空，则此元素称为空元素（empty  element），用EMPTY关键字标识；如果有内容，那么用“内容模型”（content model）指明元素允许出现什么内容。
+
+        例子：
+
+            <!ELEMENT UL - - (LI)+>
+            元素类型是UL，
+            开始标签<UL>和结束标签</UL>都不可省略；
+            内容模型指出，元素UL内必须含有至少一个LI元素。
+
+            <!ELEMENT IMG - O EMPTY>
+            声明的元素类型是IMG；
+            - O 指出开始标签必须有，结束标签可以省；但结合紧跟其后的EMPTY关键字，结束标签必须省略；
+            EMPTY关键字指出，IMG元素的内容必须是空。
+
+        Content model definitions（内容模型语法）
+
+            The content model describes what may be contained by an instance of an element type. Content model definitions may include:
+            内容模型描述了元素实例中可以包含哪些内容。内容模型定义可以包含一下几类内容：
+
+            允许包含的元素，禁止包含的元素；
+            DTD实体（DTD entities），比如参数实体%inline;
+            纯文本（用关键字"#PCDATA"表示）。这里，字符引用也算文本；
+
+            内容模型的语法如下（需要指出的是，下面的列表只是完全版的SGML语法的简化版）：
+
+            ( ... )
+                组
+            A
+                A必须出现且仅出现一次
+            A+
+                A必须出现，一次或一次以上
+            A?
+                A可以出现零次或一次
+            A*
+                A可以出现，零次或任意多次
+            +(A)
+                允许A出现
+                A may occur.
+            -(A)
+                禁止出现A
+                A must not occur.
+            A | B
+                A或B中有且仅有一个出现
+                Either A or B must occur, but not both.
+            A , B
+                A和B同时出现，且A在B之前出现
+                Both A and B must occur, in that order.
+            A & B
+                A和B同时出现，顺序不作要求
+                Both A and B must occur, in any order.
+        例子
+               <!ELEMENT UL - - (LI)+>
+            The UL element must contain one or more LI elements.
+
+               <!ELEMENT DL    - - (DT|DD)+>
+            The DL element must contain one or more DT or DD elements in any order.
+
+               <!ELEMENT OPTION - O (#PCDATA)>
+            The OPTION element may only contain text and entities, such as &amp; -- this is indicated by the SGML data type #PCDATA.
+
+        A few HTML element types use an additional SGML feature to exclude elements from their content model. Excluded elements are preceded by a hyphen. Explicit exclusions override permitted elements.
+
+        In this example, the -(A) signifies that the element A cannot appear in another A element (i.e., anchors may not be nested).
+
+           <!ELEMENT A - - (%inline;)* -(A)>
+        Note that the A element type is part of the DTD parameter entity "%inline;", but is excluded explicitly because of -(A).
+
+        Similarly, the following element type declaration for FORM prohibits nested forms:
+
+           <!ELEMENT FORM - - (%block;|SCRIPT)+ -(FORM)>
+    3.3.4 Attribute declarations（属性声明）
+        Syntax:
+        <!ATTLIST elementName attributeName (evalA|evalB| ..)
+        defaultDecl>
+        声明元素可以拥有的属性时，使用关键字 <!ATTLIST 作为声明的开头，后面是元素的名称，在后面是属性定义列表，最后是字符 > 用以标志声明的结束。其中，属性声明都是一个三元组，这个三元组定义了如下内容：
+            属性名；
+            The name of an attribute.
+            属性值的类型或属性的取值集合；DTD中显式定义的值都是大小写不敏感的。关于属性值的类型，参阅“basic HTML data types”小节获取更多信息。
+            The type of the attribute's value or an explicit set of possible values.    Values defined explicitly by the DTD are case-insensitive. Please consult the section on basic HTML data types for more information about attribute value types.
+
+            值的默认声明。#IMPLIED,#REQUIRED，#FIXED
+            Whether the default value of the attribute is implicit (keyword "#IMPLIED"), in which case the default value must be supplied by the user agent (in some cases via inheritance from parent elements); always required (keyword "#REQUIRED"); or fixed to the given value (keyword "#FIXED"). Some attribute definitions explicitly specify a default value for the attribute.
+
+            In this example, the name attribute is defined for the MAP element. The attribute is optional for this element.
+
+            <!ATTLIST MAP
+              name        CDATA     #IMPLIED
+              >
+            The type of values permitted for the attribute is given as CDATA, an SGML data type. CDATA is text that may contain character references.For more information about "CDATA", "NAME", "ID", and other data types, please consult the section on HTML data types.
+
+        DTD entities in attribute definitions
+            属性定义同样可以包含参数实体引用。
+            Attribute definitions may also contain parameter entity references.
+
+        Boolean attributes （布尔属性）
+
+        一些属性扮演布尔变量的角色。属性出现暗示其值为“true”，不出现，暗示其值为“false”。
+        布尔属性出现时，属性的取值就是属性名本身，如 selected="selected".
+
+        下面的例子定义了布尔属性selected
+        selected     (selected)  #IMPLIED  -- option is pre-selected --
+        此属性被设为“true”，如果该属性在元素的开始标签中出现。
+        <OPTION selected="selected">
+        ...contents...
+        </OPTION>
+
+        在HTML中，布尔属性可以以称为最简形式的形式出现————仅仅给出属性名而省略属性值，如
+            <OPTION selected>
+        相当于
+
+            <OPTION selected="selected">
+        此处指出，许多用户代理只识别布尔属性的最简形式而不识别其完全形式。
+        同样指出，在XHTML中，去除了对布尔属性的最简形式的支持。XHTML中，所有的属性值都必须显式指定。
