@@ -1,0 +1,35 @@
+从这一节，HTML 4 规范正式开始。
+In this section, we begin the specification of HTML 4, starting with the contract between authors, documents, users, and user agents.
+
+4.1 Definitions
+    有这些定义需要了解。
+        HTML document
+        User
+        HTML user agent
+        Error conditions
+        Deprecated
+        Obsolete
+4.2 SGML
+    HTML 4 is an SGML application conforming to International Standard ISO 8879 -- Standard Generalized Markup Language SGML (defined in [ISO8879]).
+    HTML 4 是一个SGML应用。
+
+4.3 The text/html content type
+
+    HTML文档是作为字节序列（附带着编码信息）在Internet上传送的。传送的结构（术语称作消息实体）符合 【RFC2048】和【RFC2616】规范。一个“text/html”类型的消息实体代表了一个HTML文档。
+
+    The content type for HTML documents is defined as follows:
+    HTML文档的内容类型定义如下：
+        Content type name:
+            text
+        Content subtype name:
+            html
+        Required parameters:
+            none
+        Optional parameters:
+            charset
+        Encoding considerations:
+            any encoding is allowed
+        Security considerations:
+            See the notes on security
+
+    可选的参数“charset”指定了发送的HTML文档字节流使用的字符编码。此参数允许的取值在“character encodings”一节中定义。虽然此参数是可选的，但强烈建议总是给出此参数。
