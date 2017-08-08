@@ -1,0 +1,117 @@
+ 5 HTML Document Representation
+ ----------------------------------------
+ In this chapter, we discuss how HTML documents are represented on a computer and over the Internet.
+
+ 本章讨论如何在计算机和Internet上表示HTML文档。
+
+
+document character set一节讨论一个HTML文档可以使用那些抽象字符，
+
+character encodings一节讨论在文件中和当在Internet上传送时，如何表示HTML文档中出现的字符。
+
+有些字符编码不能直接表示，故此HTML提供了字符引用（character reference）机制，字符引用可用来引用任意字符。
+
+人类语言中使用的字符数之不尽，用来表示这些字符的编码方法数值不尽，所以为了使世界不同地区的用户代理都能够正确理解HTML文档，必须充分关心这些问题。
+
+5.1 The Document Character Set（文档字符集）
+
+    为提高可交互操作性，SGML规定，每个SGML应用（包括HTML）都要指定它的文档字符集。一个文档字符集由以下内容组成：
+        一个字符表：字符集中所有抽象字符组成的集合
+        码点：字符集中每个字符对应的整数编号
+        A Repertoire: A set of abstract characters,, such as the Latin letter "A", the Cyrillic letter "I", the Chinese character meaning "water", etc.
+        Code positions: A set of integer references to characters in the repertoire.
+
+    每个SGML文档（包括HTML文档）都是一个字符序列。计算机系统通过码点识别每一个字符。例如，在ASCII字符集下，码点65、66、67分别代表字符A、B、C。
+
+    在像Web这样的全球信息系统上，仅仅使用ASCII字符集时不够的，所以HTML使用另一个完整得多的字符集——UCS（Universal Character Set，[ISO10646]）。
+    UCS字符集和Unicode字符集中的字符是一一对应的。这两个字符集都不时更新，以包含新增加的字符。约定，在本规范中，"[ISO10646]" 专指文档的字符集，"[UNICODE]" 则专指Unicode双向文本算法（the Unicode bidirectional text algorithm）。
+
+    仅有字符集还不能保证用户代理可以正确的翻译HTML文档，要做到这一点，用户代理还需要知道将HTML文档从字符流转换为字节流所使用的字符编码。
+
+5.2 Character encodings（字符编码）
+
+    “字符编码”一词在不同的规范中有不同的叫法，但所要表达的概念是相同的。协议头，属性，参数都使用“Charset”一词指代“字符编码”，并且其取值都和[IANA]登记处保持一致。
+
+    参数“charset”标识字符编码，字符编码是将字节流转换为字符序列时所用的方法。这种转换自然而然的符合Web活动的主题：服务器将HTML文档作为字节流发送给用户代理，用户代理将接收到的字节流转换为字符序列。具体地转换方法可以从最简单的一一映射到各种复杂的转换算法。
+
+    简单的一字节/一字符的编码技术对于[ISO10646]这样的大字符集是不够用的。所以有了其它编码方式（如UCS-4）。
+
+    5.2.1 Choosing an encoding（选择编码）
+        文档作者（包括自动生成文档的工具）可以根据情景自主选择最合适的字符编码，对于某些无法用选定的字符编码直接表示的字符，可以用字符引用表示之。
+
+        服务器和代理服务器可以在传输过程中转换文档编码（称作“编码转换”），因为服务器和代理服务器不必须支持包含文档中所有字符的字符集。
+
+        在Web世界里，常用的字符编码有：
+            ISO-8859-1（或者记作Latin-1），支持大多数西欧语种中的字符
+            ISO-8859-5，支持西里尔字母（Cyrillic）
+            SHIFT_JIS，一种日语编码
+            EUC-JP，另一种日语编码
+            UTF-8，ISO-10646字符集的一种编码方案
+
+        字符编码是大小写不敏感的，因此，utf-8和UTF-8具有同样的效果。
+
+        本规范没有强制要求用户代理必须支持哪种字符编码。
+
+        Notes on specific encodings （对几个特定编码的附注）
+            当使用UTF-16 (charset=UTF-16)传送HTML文档时，应当使用网络字节序（大端，就是高位字节在前）传送其中的纯文本。
+            还有，使用UTF-16传送文档时，应当在字节流的开头添加零宽度非换行空白（ZERO-WIDTH NON-BREAKING SPACE character，对应的十六进制数字是 FEFF, 也叫做 Byte Order Mark (BOM))），
+
+            不应当使用UTF-1编码方案。
+
+    5.2.2 Specifying the character encoding（指明编码）
+        服务器如何知道文档使用的是那种编码？
+
+        服务器可以根据各种线索自动“识别”文档使用的编码（但不能保证百分之百正确），但管理员最好是使用服务器提供的机制通过charset参数指明文档编码（一定不要指错了编码）。
+
+
+        用户代理如何知晓文档的字符编码？
+
+        服务器应当告诉用户代理文档的字符编码。最直接的方式是，在HTTP协议的Content-Type头字段的Charset参数，例如：
+            Content-Type: text/html; charset=EUC-JP
+        这个HTTP头宣称，文档使用的字符编码是EUC-JP。
+
+        HTTP协议建议，当Content-Type头没有给出Charset参数时，默认其值为ISO-8859-1，但这条建议在实际应用中涌出不大。故用户代理一定不要假设任何关于Charset参数的默认值。
+
+        为了解决这一窘境，HTML允许文档内部指明所使用的字符编码，方法是使用META声明，如
+            <META http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+        但要保证，文档中所有ASCII值代表的都是ASCII字符（至少在meta标签被解析之前是这样）。META标签应当尽可能往前放。
+
+        最后，HTML的某些元素还提供了charset属性以防http头和meta元素都没有给出字符编码信息。综合使用以上机制，可以最大程度地避免字符编码问题。
+
+        归纳一下，有三种设置字符编码信息的机制，从上往下，优先级由高到低：
+            An HTTP "charset" parameter in a "Content-Type" field.
+
+            A META declaration with "http-equiv" set to "Content-Type" and a value set for "charset".
+
+            The charset attribute set on an element that designates an external resource.
+
+5.3 Character references（字符引用）
+    当文档中的某个字符不能用选用的字符编码表示时，或者当软件或硬件不能输入某个字符时，可以使用SGML提供的字符引用机制输入该字符。
+    字符引用是一种编码无关的输入字符的机制，借助它，可以输入任何字符。
+
+    字符引用有两种形式：
+        数值字符引用（十进制或十六进制）
+        字符实体引用
+    注：HTML还提供行内图片的机制以支持无法直接输入的字符。
+    注：SGML允许某些情况下省略字符引用末尾的分号，但强烈建议使用完整的形式。
+
+    5.3.1 Numeric character references（数值字符引用）
+        数值字符引用通过指定ISO 10646字符集中的字符的码点来表示字符，可以用十进制或 十六进制的形式给出码点，语法如下；
+            &#D;            d是ISO 10646字符集中字符码点的十进制表示形式。
+            &#xh; or &#Xh;  h是ISO 10646字符集中字符码点的十六进制表示，大小写不敏感。
+
+
+
+    5.3.2 Character entity references（字符实体引用）
+        为了方便使用，对一些字符定义了符号名称，例如 "&aring;" 和&#229;是同一个字符，但明显前者更易于记忆。
+
+        有四个常用的符号实体引用：
+
+            "&lt;" 代表字符 <
+            "&gt;" 代表字符 >
+            "&amp;" 代表字符 &
+            "&quot; 代表字符 "
+        这四个字符在HTML中有特殊意义，使用符号实体引用可以避免引起歧义。
+    5.4 Undisplayable characters（不可展示字符）
+        用户代理有可能无法显示所有字符，例如，文档使用了代理不支持字符集。
+        这里，本规范没有规定代理应该如何处理这种意外。
